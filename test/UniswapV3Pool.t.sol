@@ -298,10 +298,10 @@ contract UniswapV3PoolTest is Test, TestUtils {
     // INTERNAL
     //
     ////////////////////////////////////////////////////////////////////////////
-    function setupTestCase(TestCaseParams memory params)
-        internal
-        returns (uint256 poolBalance0, uint256 poolBalance1)
-    {
+    // Настройка пулов ликвидности
+    function setupTestCase(
+        TestCaseParams memory params
+    ) internal returns (uint256 poolBalance0, uint256 poolBalance1) {
         token0.mint(address(this), params.wethBalance);
         token1.mint(address(this), params.usdcBalance);
 
@@ -336,3 +336,13 @@ contract UniswapV3PoolTest is Test, TestUtils {
         transferInSwapCallback = params.transferInSwapCallback;
     }
 }
+
+// k = x * y
+// 50 * 60 = 300
+// 120 * 240 = 28800
+
+// (x + r^x)(y - ^y) = k
+// r = 1 comission for swap
+// (50 + 1 * 10)(60 - 10) = 60 * 50 = 3000
+// (50 + 1.1 * 10)(60 - 10.0832) = 60.1 * 49.9168= 3000 (10.1 - 10.0832) comission 0.0168
+// (50 + 2 * 10)(60 - 4.2857) = 70 * 42.857 = 3000 (20 - 17.143) comission 2.857
