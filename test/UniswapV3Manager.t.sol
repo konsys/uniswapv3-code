@@ -264,10 +264,9 @@ contract UniswapV3ManagerTest is Test, TestUtils {
     // INTERNAL
     //
     ////////////////////////////////////////////////////////////////////////////
-    function setupTestCase(TestCaseParams memory params)
-        internal
-        returns (uint256 poolBalance0, uint256 poolBalance1)
-    {
+    function setupTestCase(
+        TestCaseParams memory params
+    ) internal returns (uint256 poolBalance0, uint256 poolBalance1) {
         token0.mint(address(this), params.wethBalance);
         token1.mint(address(this), params.usdcBalance);
 
