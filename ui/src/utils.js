@@ -7,6 +7,10 @@ export const amountEth = 1 * eth
 export const amountUsdc = 5000 * eth
 
 
+export function calcPByY(y, L) {
+    return Math.sqrt(y / L)
+}
+
 export function calcP(x, y) {
     return Math.sqrt(y / x)
 }
@@ -83,3 +87,13 @@ export function calcAmount1(liq, pa, pb) {
     }
     return liq * (b - a) / Q96
 }
+
+export function calcDeltaT(sqrtpCur) {
+    // const amountIn = 42 * 10 ** 18;
+    const amountIn = 42 * 1;
+    const priceDiff = (amountIn * Q96) // liq
+    const priceNext = sqrtpCur + priceDiff
+    // return (priceNext / Q96) ** 2
+    return (priceNext)
+    // return amountIn * Q96 / 1.5194373080147697e+21
+} 

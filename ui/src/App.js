@@ -3,6 +3,8 @@ import SwapForm from './components/SwapForm.js';
 import MetaMask from './components/MetaMask.js';
 import EventsFeed from './components/EventsFeed.js';
 import { MetaMaskProvider } from './contexts/MetaMask';
+import { computeBuyX, computeSellX, calcAmount0, calcAmount1, calcP, liquidity0, liquidity1, priceToSqrtp, priceToTick } from "./utils";
+
 
 const config = {
   token0Address: '0x5FbDB2315678afecb367f032d93F642f64180aa3',
