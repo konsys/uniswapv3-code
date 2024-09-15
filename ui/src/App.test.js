@@ -14,8 +14,6 @@ import {
 } from "./utils";
 
 const liquidity = 1.5178823437515099e21;
-const sqrtpLow = priceToSqrtp(4545);
-const sqrtpUpp = priceToSqrtp(5500);
 const sqrtpCur = priceToSqrtp(5000);
 test("renders learn react link", () => {
   // L = (x * y)^1/2
