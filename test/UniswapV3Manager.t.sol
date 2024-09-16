@@ -119,6 +119,19 @@ contract UniswapV3ManagerTest is Test, TestUtils {
         manager.mint(address(pool), 0, 887273, 0, "");
     }
 
+    function testMintInvalidTickRangeBoth() public {
+        pool = new UniswapV3Pool(
+            address(token0),
+            address(token1),
+            uint160(1),
+            0
+        );
+        manager = new UniswapV3Manager();
+
+        vm.expectRevert(encodeError("InvalidTickRange()"));
+        manager.mint(address(pool), 0, 887273, 0, "");
+    }
+
     function testMintZeroLiquidity() public {
         pool = new UniswapV3Pool(
             address(token0),
@@ -248,6 +261,35 @@ contract UniswapV3ManagerTest is Test, TestUtils {
             mintLiqudity: true
         });
         setupTestCase(params);
+
+        bytes memory extra = encodeExtra(
+            address(token0),
+            address(token1),
+            address(this)
+        );
+
+        vm.expectRevert(stdError.arithmeticError);
+        manager.swap(address(pool), extra);
+    }
+
+    function testSwapInsufficientInputAmount1() public {
+        TestCaseParams memory params = TestCaseParams({
+            wethBalance: 1 ether,
+            usdcBalance: 5000 ether,
+            currentTick: 85176,
+            lowerTick: 84222,
+            upperTick: 86129,
+            liquidity: 1517882343751509868544,
+            currentSqrtP: 5602277097478614198912276234240,
+            transferInMintCallback: true,
+            transferInSwapCallback: false,
+            mintLiqudity: true
+        });
+        setupTestCase(params);
+
+        uint256 swapAmount = 41 ether; // 42 USDC
+        token1.mint(address(this), swapAmount);
+        token1.approve(address(manager), swapAmount);
 
         bytes memory extra = encodeExtra(
             address(token0),
