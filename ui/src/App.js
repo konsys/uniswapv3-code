@@ -45,6 +45,7 @@ const App = () => {
       <div className="App flex flex-col justify-between items-center w-full h-full">
         <MetaMask />
         <SwapForm config={config} />
+
         <footer>
           <EventsFeed config={config} />
         </footer>
