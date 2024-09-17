@@ -44,18 +44,6 @@ const App = () => {
     <MetaMaskProvider>
       <div className="App flex flex-col justify-between items-center w-full h-full">
         <MetaMask />
-        computeSell: {computeSellX(10)}<br />
-        computeBuy: {computeBuyX(10)}<br />
-        priceToTick: {priceToTick(5000)}<br />
-        priceToSqrtp4545: {priceToSqrtp(4545)}<br />
-        priceToSqrtp5000: {priceToSqrtp(5000)}<br />
-        priceToSqrtp5500: {priceToSqrtp(5500)}<br />
-        calcP:0 {calcP(5000, 1)}<br />
-        liq0: {liq0}<br />
-        liq1: {liq1}<br />
-        liq: {liqOut}<br />
-        calcAmount0: {calcAmount0(liqOut, sqrtpUpp, sqrtpCur)}<br />
-        calcAmount1: {calcAmount1(liqOut, sqrtpLow, sqrtpCur)}<br />
         <SwapForm config={config} />
         <footer>
           <EventsFeed config={config} />

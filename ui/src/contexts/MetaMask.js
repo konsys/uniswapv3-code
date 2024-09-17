@@ -9,16 +9,21 @@ export const MetaMaskProvider = ({ children }) => {
 
   const connect = () => {
     if (typeof (window.ethereum) === 'undefined') {
-      return setStatus('not_installed');
+      return setStatus('Metamask not installed');
     }
+
 
     Promise.all([
       window.ethereum.request({ method: 'eth_requestAccounts' }),
       window.ethereum.request({ method: 'eth_chainId' }),
-    ]).then(function ([accounts, chainId]) {
+    ]).then(async function ([accounts, chainId]) {
+      console.log('accounts ', accounts)
+      console.log('chainId ', chainId)
       setAccount(accounts[0]);
       setChain(chainId);
       setStatus('connected');
+
+
     })
       .catch(function (error) {
         console.error(error)

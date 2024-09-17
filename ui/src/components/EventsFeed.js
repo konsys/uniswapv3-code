@@ -9,6 +9,7 @@ const getEvents = (pool) => {
     pool.queryFilter("Mint", "earliest", "latest"),
     pool.queryFilter("Swap", "earliest", "latest"),
   ]).then(([mints, swaps]) => {
+    console.log('getEvents', mints, swaps)
     return Promise.resolve((mints || []).concat(swaps || []))
   })
 }
@@ -51,6 +52,7 @@ const renderEvent = (event, i) => {
     case 'Swap':
       content = renderSwap(event.args);
       break;
+    default: break
   }
 
   return (

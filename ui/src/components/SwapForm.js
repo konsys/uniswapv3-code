@@ -28,14 +28,20 @@ const addLiquidity = (account, { token0, token1, manager }, { managerAddress, po
     [token0.address, token1.address, account]
   );
 
+  // 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+  // 0xa513E6E4b8f2a923D98304ec87F64353C4D5C853
+
   Promise.all(
     [
       token0.allowance(account, managerAddress),
       token1.allowance(account, managerAddress)
     ]
   ).then(([allowance0, allowance1]) => {
+
+
     return Promise.resolve()
       .then(() => {
+
         if (allowance0.lt(amount0)) {
           return token0.approve(managerAddress, amount0).then(tx => tx.wait())
         }
@@ -46,6 +52,7 @@ const addLiquidity = (account, { token0, token1, manager }, { managerAddress, po
         }
       })
       .then(() => {
+        console.log('allowance0, allowance1', allowance0, allowance1)
         return manager.mint(poolAddress, lowerTick, upperTick, liquidity, extra)
           .then(tx => tx.wait())
       })
