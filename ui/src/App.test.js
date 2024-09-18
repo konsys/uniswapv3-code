@@ -15,7 +15,9 @@ import {
 
 const liquidity = 1.5178823437515099e21;
 const sqrtpCur = priceToSqrtp(5000);
-test("renders learn react link", () => {
+const sqrtpCur1 = priceToSqrtp(5042);
+
+test("milestone 1", () => {
   // L = (x * y)^1/2
   expect(Math.round(calcL(1, 4545) * 100) / 100).toBe(67.42);
   expect(Math.round(calcL(1, 5000) * 100) / 100).toBe(70.71);
@@ -66,31 +68,11 @@ test("renders learn react link", () => {
   // expect(calcDeltaT(sqrtpCur)).toBe(5003.913912782393)
 });
 
-test("first swap", () => {
-  const sqrCur = 5.602277097478614e30;
+test("milestone 2", () => {
+  const amountIn = 0.01337 * eth
+  expect(amountIn).toBe(13370000000000000);
 
-  const sqrDeltaP = 2192253463713690532467206957;
-  const amountIn = 42 * eth * Q96;
-  expect(amountIn / liquidity).toBe(sqrDeltaP);
+  const priceNext = (5598789932670289186088059666432 / (liquidity * Q96 + amountIn));
 
-  const newSqwrt = sqrCur + sqrDeltaP;
-  expect(newSqwrt).toBe(5.604469350942327e30);
-
-  const newPrice = (newSqwrt / Q96) ** 2;
-  expect(newPrice).toBe(5003.913912782393);
-
-  const newTick = priceToTick(newPrice);
-  expect(newTick).toBe(85184);
-
-  const amountIn1 = calcAmount1(liquidity, sqrtpCur, newSqwrt);
-  expect(Math.round(amountIn1 / eth)).toBe(42.0);
-
-  const amountIn0 = calcAmount0(liquidity, sqrtpCur, newSqwrt);
-  expect(amountIn0 / eth).toBe(0.00839671424216093);
-  // const amountOut1 = calcAmount0(liquidity, sqrtpLow, sqrtpCur);
-
-  // print("USDC in:", amount_in / eth)
-  // print("ETH out:", amount_out / eth)
-  // # USDC in: 42.0
-  // # ETH out: 0.008396714242162444
+  expect(priceNext).toBe(6.737244039780869e+80);
 });
