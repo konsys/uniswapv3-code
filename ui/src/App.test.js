@@ -102,6 +102,7 @@ test("milestone 2", () => {
   expect(amountIn).toBe(13370000000000000);
 
   expect(priceToTick(4993.5)).toBe(85163);
+  // P^1/2 = (P^1/2 * L) / (deltX * P^1/2 + L)
   // P^1/2 = Q96 * sqrtpCur
   // L = liqudity * Q96
   const priceNext = (liquidity * Q96 * sqrtpCur) / (liquidity * Q96 + amountIn * sqrtpCur);
