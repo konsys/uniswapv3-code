@@ -68,11 +68,54 @@ test("milestone 1", () => {
   // expect(calcDeltaT(sqrtpCur)).toBe(5003.913912782393)
 });
 
+test("first swap", () => {
+  const sqrCur = 5.602277097478614e30;
+
+  const sqrDeltaP = 2192253463713690532467206957;
+  const amountIn = 42 * eth * Q96;
+  expect(amountIn / liquidity).toBe(sqrDeltaP);
+
+  const newSqwrt = sqrCur + sqrDeltaP;
+  expect(newSqwrt).toBe(5.604469350942327e30);
+
+  const newPrice = (newSqwrt / Q96) ** 2;
+  expect(newPrice).toBe(5003.913912782393);
+
+  const newTick = priceToTick(newPrice);
+  expect(newTick).toBe(85184);
+
+  const amountIn1 = calcAmount1(liquidity, sqrtpCur, newSqwrt);
+  expect(Math.round(amountIn1 / eth)).toBe(42.0);
+
+  const amountIn0 = calcAmount0(liquidity, sqrtpCur, newSqwrt);
+  expect(amountIn0 / eth).toBe(0.00839671424216093);
+  // const amountOut1 = calcAmount0(liquidity, sqrtpLow, sqrtpCur);
+
+  // print("USDC in:", amount_in / eth)
+  // print("ETH out:", amount_out / eth)
+  // # USDC in: 42.0
+  // # ETH out: 0.008396714242162444
+});
+
 test("milestone 2", () => {
   const amountIn = 0.01337 * eth
   expect(amountIn).toBe(13370000000000000);
 
-  const priceNext = (5598789932670289186088059666432 / (liquidity * Q96 + amountIn));
+  expect(priceToTick(4993.5)).toBe(85163);
+  // P^1/2 = Q96 * sqrtpCur
+  // L = liqudity * Q96
+  const priceNext = (liquidity * Q96 * sqrtpCur) / (liquidity * Q96 + amountIn * sqrtpCur);
+  expect(priceNext).toBe(5.598789932670289e+30);
 
-  expect(priceNext).toBe(6.737244039780869e+80);
+  const newPrice = (priceNext / Q96) ** 2;
+  expect(newPrice).toBe(4993.777388290041);
+
+  const newTick = priceToTick((priceNext / Q96) ** 2);
+  expect(newTick).toBe(85163);
+
+  const ethIn = calcAmount0(liquidity, priceNext, sqrtpCur);
+  expect(ethIn / eth).toBe(0.013369999999998142);
+
+  const ethOut = calcAmount1(liquidity, priceNext, sqrtpCur);
+  expect(ethOut / eth).toBe(66.80838889019013);
 });
