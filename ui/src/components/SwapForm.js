@@ -23,6 +23,9 @@ const addLiquidity = (account, { token0, token1, manager }) => {
     [token0.address, token1.address, account]
   );
 
+
+  console.log('amount0', amount0, liquidity)
+
   Promise.all(
     [
       token0.allowance(account, config.managerAddress),
