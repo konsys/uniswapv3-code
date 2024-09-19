@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 pragma solidity ^0.8.14;
 
-import "/lib/solmate/src/tokens/ERC20.sol";
+import "solmate/tokens/ERC20.sol";
 
 // import ".deps/github/OpenZeppelin/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol";
 

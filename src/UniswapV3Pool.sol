@@ -11,8 +11,7 @@ import "./lib/SwapMath.sol";
 import "./lib/Tick.sol";
 import "./lib/TickBitmap.sol";
 import "./lib/TickMath.sol";
-
-// 0x7EF2e0048f5bAeDe046f6BF797943daF4ED8CB47,0xDA0bab807633f07f013f94DD0E6A4F96F8742B53,5602277097478614198912276234240,85176
+ // 0x7EF2e0048f5bAeDe046f6BF797943daF4ED8CB47,0xDA0bab807633f07f013f94DD0E6A4F96F8742B53,5602277097478614198912276234240,85176
 contract UniswapV3Pool {
     using Tick for mapping(int24 => Tick.Info);
     using TickBitmap for mapping(int16 => uint256);
@@ -174,40 +173,6 @@ contract UniswapV3Pool {
         );
     }
 
-    function swapOld(
-        address recipient,
-        bytes calldata data
-    ) public returns (int256 amount0, int256 amount1) {
-        int24 nextTick = 85184;
-        uint160 nextPrice = 5604469350942327889444743441197;
-
-        amount0 = -0.008396714242162444 ether;
-        amount1 = 42 ether;
-
-        (slot0.tick, slot0.sqrtPriceX96) = (nextTick, nextPrice);
-
-        IERC20(token0).transfer(recipient, uint256(-amount0));
-
-        uint256 balance1Before = balance1();
-        IUniswapV3SwapCallback(msg.sender).uniswapV3SwapCallback(
-            amount0,
-            amount1,
-            data
-        );
-        if (balance1Before + uint256(amount1) > balance1())
-            revert InsufficientInputAmount();
-
-        emit Swap(
-            msg.sender,
-            recipient,
-            amount0,
-            amount1,
-            slot0.sqrtPriceX96,
-            liquidity,
-            slot0.tick
-        );
-    }
-
     function swap(
         address recipient,
         bool zeroForOne,
@@ -224,6 +189,7 @@ contract UniswapV3Pool {
         });
 
         while (state.amountSpecifiedRemaining > 0) {
+
             // struct StepState {
             //     uint160 sqrtPriceStartX96;
             //     int24 nextTick;
