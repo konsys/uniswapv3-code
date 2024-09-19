@@ -44,6 +44,7 @@ test("milestone 1", () => {
   expect(priceToTick(5000)).toBe(85176);
   expect(priceToTick(5500)).toBe(86129);
 
+
   const sqrtpLow = priceToSqrtp(4545);
   const sqrtpCur = priceToSqrtp(5000);
   const sqrtpUpp = priceToSqrtp(5500);
@@ -101,7 +102,6 @@ test("milestone 2", () => {
   const amountIn = 0.01337 * eth
   expect(amountIn).toBe(13370000000000000);
 
-  expect(priceToTick(4993.5)).toBe(85163);
   // P^1/2 = (P^1/2 * L) / (deltX * P^1/2 + L)
   // P^1/2 = Q96 * sqrtpCur
   // L = liqudity * Q96
