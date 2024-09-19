@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { MetaMaskContext } from '../contexts/MetaMask';
-import './MetaMask.css';
+import './MetaMaskConnector.css';
 
 const chainIdToChain = (chainId) => {
   switch (chainId) {
@@ -47,7 +47,7 @@ const renderStatus = (status, account, chain, connect) => {
   }
 }
 
-const MetaMask = () => {
+const MetaMaskConnector = () => {
   const context = useContext(MetaMaskContext);
 
   return (
@@ -57,4 +57,4 @@ const MetaMask = () => {
   );
 }
 
-export default MetaMask;
+export default MetaMaskConnector;

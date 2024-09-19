@@ -5,18 +5,18 @@ import config from "../config.js";
 
 const PoolABI = require('../abi/Pool.json');
 
-const getEvents = (pool) => {
+const getEvents = (poolContract) => {
   return Promise.all([
-    pool.queryFilter("Mint", "earliest", "latest"),
-    pool.queryFilter("Swap", "earliest", "latest"),
+    poolContract.queryFilter("Mint", "earliest", "latest"),
+    poolContract.queryFilter("Swap", "earliest", "latest"),
   ]).then(([mints, swaps]) => {
     return Promise.resolve((mints || []).concat(swaps || []))
   })
 }
 
-const subscribeToEvents = (pool, callback) => {
-  pool.on("Mint", (a, b, c, d, e, f, g, event) => callback(event));
-  pool.on("Swap", (a, b, c, d, e, f, g, event) => callback(event));
+const subscribeToEvents = (poolContract, callback) => {
+  poolContract.on("Mint", (a, b, c, d, e, f, g, event) => callback(event));
+  poolContract.on("Swap", (a, b, c, d, e, f, g, event) => callback(event));
 }
 
 const renderAmount = (amount) => {
