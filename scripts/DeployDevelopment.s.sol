@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: UNLICENSED
+// SPDX-License-Identifier: GPL-2.0-or-later
 pragma solidity ^0.8.14;
 
 import "forge-std/console.sol";
@@ -25,7 +25,7 @@ contract DeployDevelopment is Script {
             currentSqrtP,
             currentTick
         );
-
+// '0x7EF2e0048f5bAeDe046f6BF797943daF4ED8CB47','0xDA0bab807633f07f013f94DD0E6A4F96F8742B53','5602277097478614198912276234240','85176'
         UniswapV3Manager manager = new UniswapV3Manager();
         UniswapV3Quoter quoter = new UniswapV3Quoter();
 

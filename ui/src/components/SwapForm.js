@@ -23,9 +23,6 @@ const addLiquidity = (account, { token0, token1, manager }) => {
     [token0.address, token1.address, account]
   );
 
-
-  console.log('amount0', amount0, liquidity)
-
   Promise.all(
     [
       token0.allowance(account, config.managerAddress),
@@ -35,12 +32,12 @@ const addLiquidity = (account, { token0, token1, manager }) => {
     return Promise.resolve()
       .then(() => {
         if (allowance0.lt(amount0)) {
-          return token0.approve(config.managerAddress, uint256Max).then(tx => tx.wait())
+          return token0.approve(config.managerAddress, amount0).then(tx => tx.wait())
         }
       })
       .then(() => {
         if (allowance1.lt(amount1)) {
-          return token1.approve(config.managerAddress, uint256Max).then(tx => tx.wait())
+          return token1.approve(config.managerAddress, amount1).then(tx => tx.wait())
         }
       })
       .then(() => {
@@ -66,10 +63,11 @@ const swap = (zeroForOne, amountIn, account, { tokenIn, manager, token0, token1 
   tokenIn.allowance(account, config.managerAddress)
     .then((allowance) => {
       if (allowance.lt(amountInWei)) {
-        return tokenIn.approve(config.managerAddress, uint256Max).then(tx => tx.wait())
+        return tokenIn.approve(config.managerAddress, amountInWei).then(tx => tx.wait())
       }
     })
     .then(() => {
+      console.log('manager', manager)
       return manager.swap(config.poolAddress, zeroForOne, amountInWei, extra).then(tx => tx.wait())
     })
     .then(() => {

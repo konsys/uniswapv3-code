@@ -11,7 +11,7 @@ import "./lib/SwapMath.sol";
 import "./lib/Tick.sol";
 import "./lib/TickBitmap.sol";
 import "./lib/TickMath.sol";
-
+ // 0x7EF2e0048f5bAeDe046f6BF797943daF4ED8CB47,0xDA0bab807633f07f013f94DD0E6A4F96F8742B53,5602277097478614198912276234240,85176
 contract UniswapV3Pool {
     using Tick for mapping(int24 => Tick.Info);
     using TickBitmap for mapping(int16 => uint256);
@@ -189,6 +189,14 @@ contract UniswapV3Pool {
         });
 
         while (state.amountSpecifiedRemaining > 0) {
+
+            // struct StepState {
+            //     uint160 sqrtPriceStartX96;
+            //     int24 nextTick;
+            //     uint160 sqrtPriceNextX96;
+            //     uint256 amountIn;
+            //     uint256 amountOut;
+            // }
             StepState memory step;
 
             step.sqrtPriceStartX96 = state.sqrtPriceX96;

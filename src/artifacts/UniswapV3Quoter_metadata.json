@@ -1,0 +1,127 @@
+{
+	"compiler": {
+		"version": "0.8.22+commit.4fc1097e"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"components": [
+							{
+								"internalType": "address",
+								"name": "pool",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "amountIn",
+								"type": "uint256"
+							},
+							{
+								"internalType": "bool",
+								"name": "zeroForOne",
+								"type": "bool"
+							}
+						],
+						"internalType": "struct UniswapV3Quoter.QuoteParams",
+						"name": "params",
+						"type": "tuple"
+					}
+				],
+				"name": "quote",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "amountOut",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint160",
+						"name": "sqrtPriceX96After",
+						"type": "uint160"
+					},
+					{
+						"internalType": "int24",
+						"name": "tickAfter",
+						"type": "int24"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "int256",
+						"name": "amount0Delta",
+						"type": "int256"
+					},
+					{
+						"internalType": "int256",
+						"name": "amount1Delta",
+						"type": "int256"
+					},
+					{
+						"internalType": "bytes",
+						"name": "data",
+						"type": "bytes"
+					}
+				],
+				"name": "uniswapV3SwapCallback",
+				"outputs": [],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"src/UniswapV3Quoter.sol": "UniswapV3Quoter"
+		},
+		"evmVersion": "shanghai",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": [
+			":ds-test/=lib/forge-std/lib/ds-test/src/",
+			":forge-std/=lib/forge-std/src/",
+			":prb-math/=lib/prb-math/contracts/"
+		]
+	},
+	"sources": {
+		"src/UniswapV3Quoter.sol": {
+			"keccak256": "0xceb28e22a05ddf1678803e0bba0bef9d0d71ba93bdcf283f16e18ed13f1657cb",
+			"license": "GPL-2.0-or-later",
+			"urls": [
+				"bzz-raw://8ffe2a77ddef333ad8c13a83d2a9c2ef80fe976fb42328a365b8fbab1788c9d9",
+				"dweb:/ipfs/QmQKSmwdgQKAPS3YbiLyNPswdwyGCwaHrHUd9XRhRYSXgM"
+			]
+		},
+		"src/interfaces/IUniswapV3Pool.sol": {
+			"keccak256": "0x07344e616cabb3da1ee33410b4e62d424b846176690f85affd33a0a404d0181c",
+			"license": "GPL-2.0-or-later",
+			"urls": [
+				"bzz-raw://489c3e2fda53e5890736ead476c955fd9af3f5b0ad0df315c49ef88acc59a8d4",
+				"dweb:/ipfs/QmbqnXG8a6f7U1S6TrujrBQSB93fY4y2MrqNqGQ9sKBagv"
+			]
+		}
+	},
+	"version": 1
+}
