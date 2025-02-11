@@ -58,15 +58,18 @@ const addLiquidity = (account, { token0, token1, manager }, { managerAddress, po
   });
 }
 
-const swap = (amountIn, account, { tokenIn, manager, token0, token1 }, { managerAddress, poolAddress }) => {
+const swap = async (amountIn, account, { tokenIn, manager, token0, token1 }, { managerAddress, poolAddress }) => {
   const amountInWei = ethers.utils.parseEther(amountIn);
   const extra = ethers.utils.defaultAbiCoder.encode(
     ["address", "address", "address"],
     [token0.address, token1.address, account]
   );
 
+  console.log(11111,  account, managerAddress,  tokenIn.allowance(account, managerAddress))
   tokenIn.allowance(account, managerAddress)
     .then((allowance) => {
+     
+
       if (allowance.lt(amountInWei)) {
         return tokenIn.approve(managerAddress, amountInWei).then(tx => tx.wait())
       }
@@ -116,6 +119,7 @@ const SwapForm = (props) => {
   }
 
   const swap_ = (e) => {
+  
     e.preventDefault();
     swap(amount1.toString(), metamaskContext.account, { tokenIn: token1, manager, token0, token1 }, props.config);
   }

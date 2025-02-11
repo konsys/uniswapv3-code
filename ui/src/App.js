@@ -5,10 +5,10 @@ import EventsFeed from './components/EventsFeed.js';
 import { MetaMaskProvider } from './contexts/MetaMask';
 
 const config = {
-  token0Address: '0x5FbDB2315678afecb367f032d93F642f64180aa3',
-  token1Address: '0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512',
-  poolAddress: '0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0',
-  managerAddress: '0xcf7ed3acca5a467e9e704c703e8d87f634fb0fc9',
+  token0Address: '0x82aF49447D8a07e3bd95BD0d56f35241523fBab1',
+  token1Address: '0xaf88d065e77c8cC2239327C5EDb3A432268e5831',
+  poolAddress: '0x1e011a7Fe24AA92b2623eB6efEE51E640A109236',
+  managerAddress: '0x845AE1770Bc28d8468e03BE4b4520564467CcC3E',
   ABIs: {
     'ERC20': require('./abi/ERC20.json'),
     'Pool': require('./abi/Pool.json'),
