@@ -54,14 +54,24 @@ sqrtp_low = price_to_sqrtp(price_low)
 sqrtp_cur = price_to_sqrtp(price_cur)
 sqrtp_upp = price_to_sqrtp(price_upp)
 
+print(f"\nSquare price low: {sqrtp_low}; Square price current: {sqrtp_cur}; Square price upper: {sqrtp_upp}; q96: {q96}")
+# int(math.sqrt(p) * q96)
+
 amount_eth = 1 * eth
 amount_usdc = 5000 * eth
 
 liq0 = liquidity0(amount_eth, sqrtp_cur, sqrtp_upp)
-liq1 = liquidity1(amount_usdc, sqrtp_cur, sqrtp_low)
-liq = int(min(liq0, liq1))
+# (amount * (pa * pb) / q96) / (pb - pa)
 
-print(f"Deposit: {amount_eth/eth} ETH, {amount_usdc/eth} USDC; liquidity: {liq}")
+liq1 = liquidity1(amount_usdc, sqrtp_cur, sqrtp_low)
+# amount * q96 / (pb - pa)
+
+liq = int(min(liq0, liq1))
+print(f"liq0 ETH: {liq0}; liq1 USDC: {liq1};")
+
+print(f"\nDeposit: {amount_eth/eth} ETH, {amount_usdc/eth} USDC; liquidity: {liq}")
+print("Current tick:", price_to_tick((sqrtp_cur / q96) ** 2))
+# math.floor(math.log(p, 1.0001))
 
 # Swap USDC for ETH
 amount_in = 42 * eth
@@ -71,6 +81,8 @@ print(f"\nSelling {amount_in/eth} USDC")
 price_diff = (amount_in * q96) // liq
 price_next = sqrtp_cur + price_diff
 
+print("Price diff:", price_diff)
+print("Price next:", price_next)
 print("New price:", (price_next / q96) ** 2)
 print("New sqrtP:", price_next)
 print("New tick:", price_to_tick((price_next / q96) ** 2))
@@ -88,12 +100,17 @@ print(f"\nSelling {amount_in/eth} ETH")
 
 price_next = int((liq * q96 * sqrtp_cur) // (liq * q96 + amount_in * sqrtp_cur))
 
+
+print("Price diff:", price_diff)
+print("Price next:", price_next)
 print("New price:", (price_next / q96) ** 2)
 print("New sqrtP:", price_next)
 print("New tick:", price_to_tick((price_next / q96) ** 2))
 
 amount_in = calc_amount0(liq, price_next, sqrtp_cur)
 amount_out = calc_amount1(liq, price_next, sqrtp_cur)
+
+print(f"\nliquidity: {liq}")
 
 print("ETH in:", amount_in / eth)
 print("USDC out:", amount_out / eth)
