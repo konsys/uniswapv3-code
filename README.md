@@ -17,8 +17,8 @@ Don't hesitate to ask questions about anything that's not clear in the book!
     $ cd ui && yarn
     ```
 1. Run Anvil:
-    ```shell
-    $ make anvil
+    ```smake anvilhell
+    $ 
     ```
 1. Set environment variables and deploy contracts:
     ```shell
