@@ -4,7 +4,7 @@ anvil:
 	anvil --code-size-limit 50000
 
 deploy:
-	forge script scripts/DeployDevelopment.s.sol --broadcast --fork-url "http://localhost:8545" --private-key "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80" --code-size-limit 50000
+	forge script scripts/DeployDevelopment.s.sol --broadcast --fork-url "http://localhost:8545" --private-key "5de4111afa1a4b94908f83103eb1f1706367c2e68ca870fc3fb9a804cdab365a" --code-size-limit 50000
 
 update-abis:
 	forge inspect UniswapV3Factory abi > ui/src/abi/Factory.json

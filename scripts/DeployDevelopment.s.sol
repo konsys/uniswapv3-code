@@ -39,5 +39,7 @@ contract DeployDevelopment is Script {
         console.log("Pool address", address(pool));
         console.log("Manager address", address(manager));
         console.log("Quoter address", address(quoter));
+        console.log("Token0 balance", token0.balanceOf(address(msg.sender)));
+        console.log("Token1 balance", token1.balanceOf(address(msg.sender)));
     }
 }
