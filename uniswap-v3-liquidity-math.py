@@ -5,6 +5,20 @@ See the technical note "Liquidity Math in Uniswap v3" and the Uniswap v3 whitepa
 for the description of the purpose of this code.
 
 """
+# P price
+# pa lower bound
+# pb upper bound
+# X first asset
+# x amount of first asset
+# Y second asset
+# y amount of second asset
+# L Virtual liquidity
+# p current price
+# a lower price
+# b upper price
+# sp square current price
+# sa square lower price
+# sb square upper price
 
 #
 # Liquidity math adapted from https://github.com/Uniswap/uniswap-v3-periphery/blob/main/contracts/libraries/LiquidityAmounts.sol
@@ -171,10 +185,11 @@ def example_1():
     sp = p ** 0.5
     sa = a ** 0.5
     sb = b ** 0.5
+ 
     L = get_liquidity_0(x, sp, sb)
     y = calculate_y(L, sp, sa, sb)
     print("amount of USDC y={:.2f}".format(y))
-
+    print("Liquidity=", L, " price current=", sp, " price bottom=", sa, " price top=", sb, " asset x=", x) 
     # demonstrate that with the calculated y value, the given range is correct
     c = sb / sp
     d = sa / sp
@@ -190,6 +205,7 @@ def example_1():
 # Example 2 from the technical note
 #
 def example_2():
+    
     print("Example 2: I have 2 ETH and 4000 USDC, range top set to 3000 USDC. What's the bottom of the range?")
     p = 2000
     b = 3000
@@ -204,10 +220,45 @@ def example_2():
     print("")
 
 
+# P price
+# pa lower bound
+# pb upper bound
+# X first asset
+# x amount of first asset
+# Y second asset
+# y amount of second asset
+# L Virtual liquidity
+# p current price
+# a lower price
+# b upper price
+# sp square current price
+# sa square lower price
+# sb square upper price
+
+
 #
 # Example 3 from the technical note
 #
 def example_3():
+    # p = 2800
+    # a = 2002
+    # b = 3800
+    # x = 0.37210452
+    # y = 919.409106
+
+    # sp = p ** 0.5
+    # sa = a ** 0.5
+    # sb = b ** 0.5
+    # # calculate the initial liquidity
+    # L = get_liquidity(x, y, sp, sa, sb)
+
+    # P1 = 2800
+    # sp1 = P1 ** 0.5
+
+    # x1 = calculate_x(L, sp1, sa, sb)
+    # y1 = calculate_y(L, sp1, sa, sb)
+    # print("L=", L, "----> Amount of ETH x={:.8f} amount of USDC y={:.8f}".format(x1, y1))
+
     print("Example 3: Using the position created in Example 2, what are asset balances at 2500 USDC per ETH?")
     p = 2000
     a = 1333.33
@@ -246,13 +297,13 @@ def example_3():
 
 
 def examples():
-    example_1()
-    example_2()
+    # example_1()
+    # example_2()
     example_3()
 
 def main():
     # test with some values taken from Uniswap UI
-    tests()
+    # tests()
     # demonstrate the examples given in the paper
     examples()
 

@@ -5,7 +5,7 @@ max_tick = 887272
 
 q96 = 2**96
 eth = 10**18
-
+usdc_decimals = 10**6
 
 def price_to_tick(p):
     return math.floor(math.log(p, 1.0001))
@@ -54,7 +54,7 @@ sqrtp_low = price_to_sqrtp(price_low)
 sqrtp_cur = price_to_sqrtp(price_cur)
 sqrtp_upp = price_to_sqrtp(price_upp)
 
-print(f"\nSquare price low: {sqrtp_low}; Square price current: {sqrtp_cur}; Square price upper: {sqrtp_upp}; q96: {q96}")
+print(f"\nSquare price low: {sqrtp_low}; \nSquare price current: {sqrtp_cur}; \nSquare price upper: {sqrtp_upp}; \nq96: {q96}")
 # int(math.sqrt(p) * q96)
 
 amount_eth = 1 * eth
@@ -115,14 +115,40 @@ print(f"\nliquidity: {liq}")
 print("ETH in:", amount_in / eth)
 print("USDC out:", amount_out / eth)
 
-tick = 85176
-word_pos = tick >> 8 # or tick // 2**8
-bit_pos = tick % 256
-print(f"\nWord {word_pos}, bit {bit_pos}")
-# Word 332, bit 184
+# tick = 85176
+# word_pos = tick >> 8 # or tick // 2**8
+# bit_pos = tick % 256
+# print(f"\nWord {word_pos}, bit {bit_pos}")
+# # Word 332, bit 184
 
-mask = 2**bit_pos # or 1 << bit_pos
-print(f"\n", format(mask, '#0258b'))  
+# mask = 2**bit_pos # or 1 << bit_pos
+# print(f"\n", format(mask, '#0258b'))  
 
-word = (2**256) - 1 # set word to all ones
-print(f"\n", format(word ^ mask, '#0258b'))  
+# word = (2**256) - 1 # set word to all ones
+# print(f"\n", format(word ^ mask, '#0258b'))  
+
+
+price_low = 2500
+price_cur = 2000
+price_upp = 2500
+
+sqrtp_low = price_to_sqrtp(price_low)
+sqrtp_cur = price_to_sqrtp(price_cur)
+sqrtp_upp = price_to_sqrtp(price_upp)
+
+print(f"\nSquare price low: {sqrtp_low}; \nSquare price current: {sqrtp_cur}; \nSquare price upper: {sqrtp_upp}; \nq96: {q96}")
+
+
+amount_eth = 2 * eth
+
+liq0 = liquidity0(amount_eth, sqrtp_cur, sqrtp_upp)
+# (amount * (pa * pb) / q96) / (pb - pa)
+
+
+print(f"liq0 ETH: {liq0}")
+
+def calculate_x(L, sp, sa, sb):
+    sp = max(min(sp, sb), sa)     # if the price is outside the range, use the range endpoints instead
+    return L * (sb - sp) / (sp * sb)
+
+print(f"calculate_x: {calculate_x(liq0, sqrtp_cur, sqrtp_low, sqrtp_upp)}")
