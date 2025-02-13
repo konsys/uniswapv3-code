@@ -71,6 +71,8 @@ print(f"liq0 ETH: {liq0}; liq1 USDC: {liq1};")
 
 print(f"\nDeposit: {amount_eth/eth} ETH, {amount_usdc/eth} USDC; liquidity: {liq}")
 print("Current tick:", price_to_tick((sqrtp_cur / q96) ** 2))
+print("Upper tick:", price_to_tick((sqrtp_upp / q96) ** 2))
+print("Lower tick:", price_to_tick((sqrtp_low / q96) ** 2))
 # math.floor(math.log(p, 1.0001))
 
 # Swap USDC for ETH
@@ -94,15 +96,13 @@ print("USDC in:", amount_in / eth)
 print("ETH out:", amount_out / eth)
 
 # Swap ETH for USDC
-amount_in = 0.01337 * eth
+amount_in = 1.01337 * eth
 
 print(f"\nSelling {amount_in/eth} ETH")
 
 price_next = int((liq * q96 * sqrtp_cur) // (liq * q96 + amount_in * sqrtp_cur))
 
 
-print("Price diff:", price_diff)
-print("Price next:", price_next)
 print("New price:", (price_next / q96) ** 2)
 print("New sqrtP:", price_next)
 print("New tick:", price_to_tick((price_next / q96) ** 2))
@@ -114,3 +114,15 @@ print(f"\nliquidity: {liq}")
 
 print("ETH in:", amount_in / eth)
 print("USDC out:", amount_out / eth)
+
+tick = 85176
+word_pos = tick >> 8 # or tick // 2**8
+bit_pos = tick % 256
+print(f"\nWord {word_pos}, bit {bit_pos}")
+# Word 332, bit 184
+
+mask = 2**bit_pos # or 1 << bit_pos
+print(f"\n", format(mask, '#0258b'))  
+
+word = (2**256) - 1 # set word to all ones
+print(f"\n", format(word ^ mask, '#0258b'))  
