@@ -18,7 +18,7 @@ b upper price
 sp square root current price
 sa square root lower price
 sb square upper price
-
+ 
 """
 
 
@@ -111,7 +111,7 @@ def test(x, y, p, a, b):
     sb = b ** 0.5
 
     L = get_liquidity(x, y, sp, sa, sb)
-    print("L: {:.2f}".format(L))
+    print("L: {:.2f}".format(L), "p=", p, " a=", a, " b=", b, "x=", x, "y=", y)
 
     ia = calculate_a1(L, sp, sb, x, y)
     error = 100.0 * (1 - ia / a)
@@ -336,7 +336,7 @@ def main():
     # test with some values taken from Uniswap UI
     tests()
     # demonstrate the examples given in the paper
-    examples()
+    # examples()
 
 if __name__ == "__main__":
     main()
