@@ -13,7 +13,8 @@ const TokensList = (props) => {
   )
 }
 
-const addLiquidity = (account, { token0, token1, manager }, { managerAddress, poolAddress }) => {
+const addLiquidity = async (account, { token0, token1, manager }, { managerAddress, poolAddress }) => {
+
   if (!token0 || !token1) {
     return;
   }
@@ -28,27 +29,35 @@ const addLiquidity = (account, { token0, token1, manager }, { managerAddress, po
     [token0.address, token1.address, account]
   );
 
+
   Promise.all(
     [
       token0.allowance(account, managerAddress),
       token1.allowance(account, managerAddress)
     ]
   ).then(([allowance0, allowance1]) => {
+
     return Promise.resolve()
-      .then(() => {
+      .then(async () => {
         if (allowance0.lt(amount0)) {
-          return token0.approve(managerAddress, amount0).then(tx => tx.wait())
+          console.log(5555555, token0)
+          console.log(111, amount0.toString(), allowance0.toString(), managerAddress)
+          const tx = await token0.approve(managerAddress, amount0)
+          console.log(222, tx)
+          const ap = await tx.wait()
+
+          return ap
         }
       })
-      .then(() => {
-        if (allowance1.lt(amount1)) {
-          return token1.approve(managerAddress, amount1).then(tx => tx.wait())
-        }
-      })
-      .then(() => {
-        return manager.mint(poolAddress, lowerTick, upperTick, liquidity, extra)
-          .then(tx => tx.wait())
-      })
+      // .then(() => {
+      //   if (allowance1.lt(amount1)) {
+      //     return token1.approve(managerAddress, amount1).then(tx => tx.wait())
+      //   }
+      // })
+      // .then(() => {
+      //   return manager.mint(poolAddress, lowerTick, upperTick, liquidity, extra)
+      //     .then(tx => tx.wait())
+      // })
       .then(() => {
         alert('Liquidity added!');
       });
@@ -65,10 +74,10 @@ const swap = async (amountIn, account, { tokenIn, manager, token0, token1 }, { m
     [token0.address, token1.address, account]
   );
 
-  console.log(11111,  account, managerAddress,  tokenIn.allowance(account, managerAddress))
+
   tokenIn.allowance(account, managerAddress)
     .then((allowance) => {
-     
+
 
       if (allowance.lt(amountInWei)) {
         return tokenIn.approve(managerAddress, amountInWei).then(tx => tx.wait())
@@ -112,14 +121,20 @@ const SwapForm = (props) => {
       props.config.ABIs.Manager,
       new ethers.providers.Web3Provider(window.ethereum).getSigner()
     ));
-  }, []);
+  }, [
+    props.config.ABIs.ERC20,
+    props.config.ABIs.Manager,
+    props.config.managerAddress,
+    props.config.token0Address,
+    props.config.token1Address
+  ]);
 
   const addLiquidity_ = () => {
     addLiquidity(metamaskContext.account, { token0, token1, manager }, props.config);
   }
 
   const swap_ = (e) => {
-  
+
     e.preventDefault();
     swap(amount1.toString(), metamaskContext.account, { tokenIn: token1, manager, token0, token1 }, props.config);
   }
@@ -146,3 +161,4 @@ const SwapForm = (props) => {
 }
 
 export default SwapForm;
+

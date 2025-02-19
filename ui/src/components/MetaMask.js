@@ -19,7 +19,7 @@ const shortAddress = address => (address.slice(0, 6) + "..." + address.slice(-4)
 
 const statusConnected = (account, chain) => {
   return (
-    <span>Connected to {chainIdToChain(chain)} as {shortAddress(account)}</span>
+    <span>Connected to {chainIdToChain(chain)} as {shortAddress(account)} {chain}</span>
   );
 }
 
@@ -34,7 +34,7 @@ const statusNotConnected = (connect) => {
 const renderStatus = (status, account, chain, connect) => {
   switch (status) {
     case 'connected':
-      return statusConnected(account, chain)
+      return statusConnected(account)
 
     case 'not_connected':
       return statusNotConnected(connect)
