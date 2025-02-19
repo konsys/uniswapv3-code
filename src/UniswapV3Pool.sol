@@ -135,10 +135,10 @@ contract UniswapV3Pool {
         );
     }
 
-    function swap(address recipient, bytes calldata data)
-        public
-        returns (int256 amount0, int256 amount1)
-    {
+    function swap(
+        address recipient,
+        bytes calldata data
+    ) public returns (int256 amount0, int256 amount1) {
         int24 nextTick = 85184;
         uint160 nextPrice = 5604469350942327889444743441197;
 
