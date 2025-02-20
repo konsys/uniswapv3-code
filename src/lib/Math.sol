@@ -111,11 +111,10 @@ library Math {
         }
     }
 
-    function divRoundingUp(uint256 numerator, uint256 denominator)
-        internal
-        pure
-        returns (uint256 result)
-    {
+    function divRoundingUp(
+        uint256 numerator,
+        uint256 denominator
+    ) internal pure returns (uint256 result) {
         assembly {
             result := add(
                 div(numerator, denominator),
