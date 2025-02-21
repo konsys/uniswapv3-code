@@ -342,35 +342,35 @@ library PRBMath {
     /// @param x The uint256 number for which to find the index of the most significant bit.
     /// @return msb The index of the most significant bit as an uint256.
     function mostSignificantBit(uint256 x) internal pure returns (uint256 msb) {
-        if (x >= 2 ** 128) {
+        if (x >= 2**128) {
             x >>= 128;
             msb += 128;
         }
-        if (x >= 2 ** 64) {
+        if (x >= 2**64) {
             x >>= 64;
             msb += 64;
         }
-        if (x >= 2 ** 32) {
+        if (x >= 2**32) {
             x >>= 32;
             msb += 32;
         }
-        if (x >= 2 ** 16) {
+        if (x >= 2**16) {
             x >>= 16;
             msb += 16;
         }
-        if (x >= 2 ** 8) {
+        if (x >= 2**8) {
             x >>= 8;
             msb += 8;
         }
-        if (x >= 2 ** 4) {
+        if (x >= 2**4) {
             x >>= 4;
             msb += 4;
         }
-        if (x >= 2 ** 2) {
+        if (x >= 2**2) {
             x >>= 2;
             msb += 2;
         }
-        if (x >= 2 ** 1) {
+        if (x >= 2**1) {
             // No need to shift x any more.
             msb += 1;
         }
@@ -495,10 +495,7 @@ library PRBMath {
     /// @param x The multiplicand as an unsigned 60.18-decimal fixed-point number.
     /// @param y The multiplier as an unsigned 60.18-decimal fixed-point number.
     /// @return result The result as an unsigned 60.18-decimal fixed-point number.
-    function mulDivFixedPoint(
-        uint256 x,
-        uint256 y
-    ) internal pure returns (uint256 result) {
+    function mulDivFixedPoint(uint256 x, uint256 y) internal pure returns (uint256 result) {
         uint256 prod0;
         uint256 prod1;
         assembly {
@@ -530,10 +527,7 @@ library PRBMath {
                 mul(
                     or(
                         div(sub(prod0, remainder), SCALE_LPOTD),
-                        mul(
-                            sub(prod1, gt(remainder, prod0)),
-                            add(div(sub(0, SCALE_LPOTD), SCALE_LPOTD), 1)
-                        )
+                        mul(sub(prod1, gt(remainder, prod0)), add(div(sub(0, SCALE_LPOTD), SCALE_LPOTD), 1))
                     ),
                     SCALE_INVERSE
                 ),
@@ -559,11 +553,7 @@ library PRBMath {
         int256 y,
         int256 denominator
     ) internal pure returns (int256 result) {
-        if (
-            x == type(int256).min ||
-            y == type(int256).min ||
-            denominator == type(int256).min
-        ) {
+        if (x == type(int256).min || y == type(int256).min || denominator == type(int256).min) {
             revert PRBMath__MulDivSignedInputTooSmall();
         }
 
