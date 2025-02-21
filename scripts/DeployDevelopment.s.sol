@@ -43,3 +43,15 @@ contract DeployDevelopment is Script {
         console.log("Token1 balance", token1.balanceOf(address(msg.sender)));
     }
 }
+
+// 80d04b588072cacd2a61912044cdbd05e59a2094c037b934c8aafa4e21fb1745
+// 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80
+// forge inspect UniswapV3Pool abi
+// cast call 0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0 "slot0()"| xargs cast --abi-decode "a()(uint160,int24)"
+// forge script scripts/DeployDevelopment.s.sol --broadcast --fork-url http://localhost:8545 --private-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 --code-size-limit 50000
+// anvil --code-size-limit 50000
+
+// params='{"from":"0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266","to":"0xe7f1725e7734ce288f8367e1bb143e90bb3f0512","data":"0x70a08231000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266"}'
+// curl -X POST -H 'Content-Type: application/json' \
+//   --data '{"id":1,"jsonrpc":"2.0","method":"eth_call","params":['"$params"',"latest"]}' \
+//   http://127.0.0.1:8545
