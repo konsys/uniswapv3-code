@@ -5,10 +5,12 @@
   "main": "index.js",
   "directories": {
     "lib": "lib",
-    "test": "test"
+    "test": "test",
+    "chain": "anvill"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npx hardhat test",
+    "coverage": "npx hardhat coverage"
   },
   "keywords": [],
   "author": "",
