@@ -10,13 +10,11 @@ contract UniswapV3Quoter {
         bool zeroForOne;
     }
 
-    function quote(QuoteParams memory params)
+    function quote(
+        QuoteParams memory params
+    )
         public
-        returns (
-            uint256 amountOut,
-            uint160 sqrtPriceX96After,
-            int24 tickAfter
-        )
+        returns (uint256 amountOut, uint160 sqrtPriceX96After, int24 tickAfter)
     {
         try
             IUniswapV3Pool(params.pool).swap(
