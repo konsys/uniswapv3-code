@@ -24,28 +24,12 @@ describe("Lock", function () {
     const pool = await UniswapV3Pool.deploy(token0.target.toString(), token1.target.toString(), currentSqrtP, currentTick);
 
     const abiCoder = new AbiCoder()
-    const extra = abiCoder.encode(
-      ["address", "address", "address"],
-      [token0.target, token1.target, owner]
-    );
 
-    console.log(11111111111, extra)
-    // await pool.mint({
-    //   owner,
-    //   lowerTick,
-    //    upperTick,
-    //   amount:liqudity,
-    //     data:''
-    // })
     const UniswapV3Manager = await ethers.getContractFactory("UniswapV3Manager");
     const manager = await UniswapV3Manager.deploy();
 
     const UniswapV3Quoter = await ethers.getContractFactory("UniswapV3Quoter");
     const quoter = await UniswapV3Quoter.deploy();
-
-    // const res = await quoter.quote({   pool:'0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266',
-    //    amountIn:1,
-    //    zeroForOne: true})
 
     await token0.mint(owner, wethBalance);
     await token1.mint(owner, usdcBalance);
@@ -57,13 +41,46 @@ describe("Lock", function () {
     expect(b0).to.equal(wethBalance);
     expect(b1).to.equal(usdcBalance);
 
-    const r = await token0.approve(manager.target, MaxInt256).then(tx => tx.wait())
+    const aprove0 = await token0.approve(manager.target, MaxInt256).then(tx => tx.wait())
+    const aprove1 = await token1.approve(manager.target, MaxInt256).then(tx => tx.wait())
+    const extra = abiCoder.encode(
+      ["address", "address", "address"],
+      [token0.target, token1.target, owner]
+    );
 
-    console.log(11111,r)
+    const res = await manager.mint(pool.target, lowerTick, upperTick, liquidity, extra).then(tx => tx.wait())
+    // console.log(11111,res)
+
+    const r1 = await manager.swap(pool.target, true, usdcBalance, extra).then(tx => tx.wait())
+    console.log(11111,r1)
   });
 
 }); 
 
+
+// const swap = (zeroForOne, amountIn, account, { tokenIn, manager, token0, token1 }) => {
+//   const amountInWei = ethers.utils.parseEther(amountIn);
+//   const extra = ethers.utils.defaultAbiCoder.encode(
+//     ["address", "address", "address"],
+//     [token0.address, token1.address, account]
+//   );
+
+//   tokenIn.allowance(account, config.managerAddress)
+//     .then((allowance) => {
+//       if (allowance.lt(amountInWei)) {
+//         return tokenIn.approve(config.managerAddress, uint256Max).then(tx => tx.wait())
+//       }
+//     })
+//     .then(() => {
+//       return manager.swap(config.poolAddress, zeroForOne, amountInWei, extra).then(tx => tx.wait())
+//     })
+//     .then(() => {
+//       alert('Swap succeeded!');
+//     }).catch((err) => {
+//       console.error(err);
+//       alert('Failed!');
+//     });
+// }
 
 // const mint = async (manager, token0, token1, account, managerAddress,poolAddress, amount0, amount1) => {
 //   Promise.all(
