@@ -3,7 +3,7 @@ import { ethers } from "hardhat";
 import { AbiCoder,MaxInt256 } from "ethers"
 // import { time } from "@nomicfoundation/hardhat-toolbox/network-helpers";
 
-describe("Lock", function () {
+describe("Swap", function () {
   it("Should qoute", async function () {
     const wethBalance = 100000000000000000000n;
     const usdcBalance = 100000000000000000000000n;
@@ -49,10 +49,10 @@ describe("Lock", function () {
     );
 
     const res = await manager.mint(pool.target, lowerTick, upperTick, liquidity, extra).then(tx => tx.wait())
-    // console.log(11111,res)
+    // console.log(11111,aprove0)
 
-    const r1 = await manager.swap(pool.target, true, usdcBalance, extra).then(tx => tx.wait())
-    console.log(11111,r1)
+    const r1 = await manager.swap(pool.target, true, 10000, extra).then(tx => tx.wait())
+
   });
 
 }); 
