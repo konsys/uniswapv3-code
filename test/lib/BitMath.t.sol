@@ -18,15 +18,12 @@ contract BitMathTest is Test {
 
     function testLessSignificantBit() public {
         uint256 amn = BitMath.leastSignificantBit(0x1);
-        console.log("WETH address", (amn));
         assertEq(amn, 0);
 
         amn = BitMath.leastSignificantBit(0x2);
-        console.log("WETH address", (amn));
         assertEq(amn, 1);
 
         amn = BitMath.leastSignificantBit(0x8);
-        console.log("WETH address", (amn));
         assertEq(amn, 3);
     }
 }
