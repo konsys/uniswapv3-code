@@ -2,7 +2,7 @@
 pragma solidity ^0.8.14;
 import "../lib/BitMath.sol";
 
-contract BithMathAdapter {
+contract BitMathAdapter {
     function mostSignificantBit(uint256 masked) external pure returns (uint8) {
         return BitMath.mostSignificantBit(masked);
     }
