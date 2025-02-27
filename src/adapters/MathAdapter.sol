@@ -38,7 +38,7 @@ contract MathAdapter {
         uint160 sqrtPriceX96,
         uint128 liquidity,
         uint256 amountIn
-    ) internal pure returns (uint160) {
+    ) external pure returns (uint160) {
         return
             Math.getNextSqrtPriceFromAmount0RoundingUp(
                 sqrtPriceX96,
@@ -51,7 +51,7 @@ contract MathAdapter {
         uint160 sqrtPriceX96,
         uint128 liquidity,
         uint256 amountIn
-    ) internal pure returns (uint160) {
+    ) external pure returns (uint160) {
         return
             Math.getNextSqrtPriceFromAmount1RoundingDown(
                 sqrtPriceX96,
@@ -64,14 +64,14 @@ contract MathAdapter {
         uint256 a,
         uint256 b,
         uint256 denominator
-    ) internal pure returns (uint256 result) {
+    ) external pure returns (uint256 result) {
         return Math.mulDivRoundingUp(a, b, denominator);
     }
 
     function divRoundingUp(
         uint256 numerator,
         uint256 denominator
-    ) internal pure returns (uint256 result) {
+    ) external pure returns (uint256 result) {
         return Math.divRoundingUp(numerator, denominator);
     }
 }
