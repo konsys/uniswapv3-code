@@ -13,9 +13,21 @@ import "./lib/TickBitmap.sol";
 import "./lib/TickMath.sol";
 
 contract UniswapV3Pool {
+    // В этих случаях к смарт-контракту присоединяются
+    // все функции из библиотеки, включая те,
+    // где тип первого параметра не совпадает с типом объекта.
+    // Тип проверяется в момент вызова функции,
+    // и выполняется перегрузка функции.
+    // Использовать библиотеку для mapping(int24 => Tick.Info)
     using Tick for mapping(int24 => Tick.Info);
+
+    // Использовать библиотеку для mapping(int16 => uint256)
     using TickBitmap for mapping(int16 => uint256);
+
+    // Использовать библиотеку для mapping(bytes32 => Position.Info)
     using Position for mapping(bytes32 => Position.Info);
+
+    // Использовать библиотеку для Position.Info
     using Position for Position.Info;
 
     error InsufficientInputAmount();

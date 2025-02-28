@@ -56,6 +56,11 @@ contract UniswapV3Manager {
         int256 amount1,
         bytes calldata data
     ) public {
+        // UniswapV3Pool.CallbackData
+        // address token0;
+        // address token1;
+        // address payer;
+
         UniswapV3Pool.CallbackData memory extra = abi.decode(
             data,
             (UniswapV3Pool.CallbackData)
