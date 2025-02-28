@@ -49,7 +49,7 @@ describe("Swap", function () {
     );
 
     const res = await manager.mint(pool.target, lowerTick, upperTick, liquidity, extra).then(tx => tx.wait())
-    // console.log(11111,aprove0)
+
 
     const r1 = await manager.swap(pool.target, true, 10000, extra).then(tx => tx.wait())
 
@@ -57,58 +57,3 @@ describe("Swap", function () {
 
 });
 
-
-// const swap = (zeroForOne, amountIn, account, { tokenIn, manager, token0, token1 }) => {
-//   const amountInWei = ethers.utils.parseEther(amountIn);
-//   const extra = ethers.utils.defaultAbiCoder.encode(
-//     ["address", "address", "address"],
-//     [token0.address, token1.address, account]
-//   );
-
-//   tokenIn.allowance(account, config.managerAddress)
-//     .then((allowance) => {
-//       if (allowance.lt(amountInWei)) {
-//         return tokenIn.approve(config.managerAddress, uint256Max).then(tx => tx.wait())
-//       }
-//     })
-//     .then(() => {
-//       return manager.swap(config.poolAddress, zeroForOne, amountInWei, extra).then(tx => tx.wait())
-//     })
-//     .then(() => {
-//       alert('Swap succeeded!');
-//     }).catch((err) => {
-//       console.error(err);
-//       alert('Failed!');
-//     });
-// }
-
-// const mint = async (manager, token0, token1, account, managerAddress,poolAddress, amount0, amount1) => {
-//   Promise.all(
-//     [
-//       token0.allowance(account, managerAddress),
-//       token1.allowance(account, managerAddress)
-//     ]
-//   ).then(([allowance0, allowance1]) => {
-//     return Promise.resolve()
-//       .then(() => {
-//         if (allowance0.lt(amount0)) {
-//           return token0.approve(managerAddress, MaxInt256).then(tx => tx.wait())
-//         }
-//       })
-//       .then(() => {
-//         if (allowance1.lt(amount1)) {
-//           return token1.approve(managerAddress, MaxInt256).then(tx => tx.wait())
-//         }
-//       })
-//       .then(() => {
-//         return manager.mint(poolAddress, lowerTick, upperTick, liquidity, extra)
-//           .then(tx => tx.wait())
-//       })
-//       .then(() => {
-//         alert('Liquidity added!');
-//       });
-//   }).catch((err) => {
-//     console.error(err);
-//     alert('Failed!');
-//   });
-// }
