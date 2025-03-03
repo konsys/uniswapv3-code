@@ -20,6 +20,7 @@ def calculate_y(L, sp, sa, sb):
 
 def get_liquidity_0(x, sa, sb):
     return x * sa * sb / (sb - sa)
+    # (amount * (pa * pb) / q96) / (pb - pa)
 
 def get_liquidity_1(y, sa, sb):
     return y / (sb - sa)
@@ -128,46 +129,64 @@ sp = math.sqrt(p)
 sa = math.sqrt(a)
 sb =  math.sqrt(b)
 
+
 L = get_liquidity(1, 5000, sp, sa, sb)
 x = calculate_x(L, sp, sa, sb)
 y = calculate_y(L, sp, sa, sb)
 
 print(f"x: {x}")
 print(f"y: {y}")
-print(f"liq: {L}")
+print(f"usdc: {y + x * y}")
+print(f"liq: {L} \n") 
 
-print(f"pTick: { price_to_tick(5000)}")
-print(f"aTick: { price_to_tick(4545)}")
-print(f"bTick: { price_to_tick(5500)}")
+sp1 =  math.sqrt(4546)
+x = calculate_x(L, sp1, sa, sb)
+y = calculate_y(L, sp1, sa, sb)
 
-a = calculate_a1(L, sp, sb, x, y)
-print(f"a1: { a }")
-a = calculate_a2(sp, sb, x, y)
-print(f"a2: { a }")
+print(f"x1: {x}")
+print(f"y1: {y}")
+print(f"usdc: {y + x * y} \n")
 
-b = calculate_b1(L, sp, sb, x, y)
-print(f"b1: { b }")
-b = calculate_b2(sp, sa, x, y) 
-print(f"b2: { b }") 
+sp1 =  math.sqrt(5499)
+x = calculate_x(L, sp1, sa, sb)
+y = calculate_y(L, sp1, sa, sb)
 
-c = sb / sp
-d = sa / sp
+print(f"x1: {x}")
+print(f"y1: {y}")
+print(f"usdc: {y + x * y} \n")
 
-c = calculate_c(p, d, x, y)
-print(f"c: { c }")
-d = calculate_d(p, c, x, y)
-print(f"d: { d }") 
+# print(f"pTick: { price_to_tick(5000)}")
+# print(f"aTick: { price_to_tick(4545)}")
+# print(f"bTick: { price_to_tick(5500)}\n")
 
-amount_in = math.sqrt(42)
+# a = calculate_a1(L, sp, sb, x, y)
+# print(f"a1: { a }")
+# a = calculate_a2(sp, sb, x, y)
+# print(f"a2: { a }")
 
-pn = get_price_next_y(L, sp, amount_in)
-print(f"pn: {pn}")
+# b = calculate_b1(L, sp, sb, x, y)
+# print(f"b1: { b }")
+# b = calculate_b2(sp, sa, x, y) 
+# print(f"b2: { b }") 
 
-x = calculate_x(L, pn, sa, sb)
-y = calculate_y(L, pn, sa, sb)
+# c = sb / sp
+# d = sa / sp
 
-L1 = get_liquidity_1(math.sqrt(5042), sa, sb)
-L2 = get_liquidity_1(math.sqrt(5000), sa, sb)
-print(f"xNew: {x}")
-print(f"yNew: {y}")
-print(f"L1: {L1}", f"L: {L}", f"L2: {L2}", sp)
+# c = calculate_c(p, d, x, y)
+# print(f"c: { c }")
+# d = calculate_d(p, c, x, y)
+# print(f"d: { d }") 
+
+# amount_in = math.sqrt(42)
+
+# pn = get_price_next_y(L, sp, amount_in)
+# print(f"pn: {pn}")
+
+# x = calculate_x(L, pn, sa, sb)
+# y = calculate_y(L, pn, sa, sb)
+
+# L1 = get_liquidity_1(math.sqrt(5042), sa, sb)
+# L2 = get_liquidity_1(math.sqrt(5000), sa, sb)
+# print(f"xNew: {x}")
+# print(f"yNew: {y}")
+# print(f"L1: {L1}", f"L: {L}", f"L2: {L2}", sp)
